@@ -17,5 +17,12 @@ def get_data():
 def saludo(nombre):
     return jsonify({"mensaje": f"Hola, {nombre}!"})
 
+@app.route('/api/data', methods=['POST'])
+def receive_message():
+    data = request.json
+    message = data.get('message')
+    # Process the message...
+    return jsonify({'status': 'ok', 'received': message})
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
