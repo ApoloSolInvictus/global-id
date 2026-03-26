@@ -6,10 +6,16 @@ async function loadData() {
 
   try {
     // Cuando tu backend Flask/Spring esté corriendo en local:
-    const response = await fetch('/api/data');
+    const response = await fetch('https://global-id.railway.internal/api/data');
     const data = await response.json();
     resultBox.textContent = JSON.stringify(data, null, 2);
   } catch (error) {
+    const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:5000'
+  : 'https://global-id.railway.app';
+
+    const response = await fetch(`${API_URL}/api/data`);
+    
     // Si no hay backend aún, muestra datos de ejemplo
     resultBox.textContent = '✅ Respuesta de ejemplo: { "mensaje": "¡Hola desde el servidor!", "status": "ok" }';
   }
